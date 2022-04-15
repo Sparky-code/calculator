@@ -41,9 +41,10 @@ function operate(a, b, op) {
     return total;
 }
 
-//add visuals to html css
-//mock up the visuals
 //add clear button
+function clear() {
+
+}
 
 // link up buttons with JS
 // Make it work!
