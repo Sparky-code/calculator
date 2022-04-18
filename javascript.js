@@ -27,6 +27,9 @@ const power = function (a, b) {
     return result
 }
 
+const displayValue = document.getElementById('screen');
+const input = document.getElementsByClassName('button');
+
 // create operate() - takes an operator and two numbers, calls a function
 function operate(a, b, op) {
     let opsy = op.name;
@@ -41,10 +44,16 @@ function operate(a, b, op) {
     return total;
 }
 
-//add clear button
-function clear() {
+window.addEventListener('click', function (e) {
+    value = document.getElementById('plus').innerText
+    alt = e.target.getAttribute('id');
+    console.log(value)
+    console.log(alt);
+})
 
-}
+//add clear button
+
+
 
 // link up buttons with JS
 // Make it work!
