@@ -11,6 +11,7 @@ const operators = document.getElementById('operators');
 // CLEAR Function & Button
 
 function clear() {
+    displayValue = '';
     currentInput = '';
     priorInput = '';
     operator = '';
@@ -23,10 +24,26 @@ function clear() {
 inputOptions.addEventListener('click', function (e) {
     if (e.target.getAttribute('id') === 'Clear') {
         clear();
+    } else if (displayValue != '') {
+        currentInput = '';
+        priorInput = '';
+        operator = '';
+        displayValue = currentInput + ((displayValue) + (e.target.getAttribute('id')));
+        currentInput = displayValue;
+        document.getElementById('screen').innerHTML = currentInput;
+        console.log(currentInput);
     } else
-        currentInput += (e.target.getAttribute('id'));
+        currentInput = currentInput + (e.target.getAttribute('id'));
     document.getElementById('screen').innerHTML = currentInput
     console.log(currentInput)
+})
+
+inputOptions.addEventListener('click', function (e) {
+    if (currentInput.length > 9) {
+        let trimmedValue = currentInput.substring(0, 8)
+        document.getElementById('screen').innerHTML = trimmedValue;
+        console.log(trimmedValue)
+    }
 })
 
 bottomRow.addEventListener('click', function (e) {
@@ -46,26 +63,40 @@ bottomRow.addEventListener('click', function (e) {
 // OPERATION
 
 function operate() {
-    let operatorRegEx = /\W/;
-    let operatorMatch = currentInput.match(operatorRegEx)
-    priorInput = currentInput.split(operatorMatch, 9);
-    let a = priorInput[0].toString();
-    let b = priorInput[1].toString();
-    console.log(priorInput);
     if (currentInput.includes('+')) {
-        console.log(displayValue = parseInt(a) + parseInt(b));
-        displayValue = parseInt(a) + parseInt(b);
+        priorInput = currentInput.split('+', 9);
+        let a = priorInput[0].toString();
+        let b = priorInput[1].toString();
+        console.log(priorInput);
+        console.log(displayValue = parseFloat(a) + parseFloat(b));
+        displayValue = parseFloat(a) + parseFloat(b);
     } else if (currentInput.includes('-')) {
-        console.log(displayValue = parseInt(a) - parseInt(b));
-        displayValue = parseInt(a) - parseInt(b);
+        priorInput = currentInput.split('-', 9);
+        let a = priorInput[0].toString();
+        let b = priorInput[1].toString();
+        console.log(priorInput);
+        console.log(displayValue = parseFloat(a) - parseFloat(b));
+        displayValue = parseFloat(a) - parseFloat(b);
     } else if (currentInput.includes('*')) {
-        console.log(displayValue = parseInt(a) * parseInt(b));
-        displayValue = parseInt(a) * parseInt(b);
+        priorInput = currentInput.split('*', 9);
+        let a = priorInput[0].toString();
+        let b = priorInput[1].toString();
+        console.log(priorInput);
+        console.log(displayValue = parseFloat(a) * parseFloat(b));
+        displayValue = parseFloat(a) * parseFloat(b);
     } else if (currentInput.includes('/')) {
-        console.log(priorInput = parseInt(a) / parseInt(b));
-        displayValue = priorInput = parseInt(a) / parseInt(b);
+        priorInput = currentInput.split('/', 9);
+        let a = priorInput[0].toString();
+        let b = priorInput[1].toString();
+        console.log(priorInput);
+        console.log(priorInput = parseFloat(a) / parseFloat(b));
+        displayValue = priorInput = parseFloat(a) / parseFloat(b);
     } else if (currentInput.includes('^')) {
-        console.log(priorInput = parseInt(a) ** parseInt(b));
-        displayValue = priorInput = parseInt(a) ** parseInt(b);
+        priorInput = currentInput.split('^', 9);
+        let a = priorInput[0].toString();
+        let b = priorInput[1].toString();
+        console.log(priorInput);
+        console.log(priorInput = parseFloat(a) ** parseFloat(b));
+        displayValue = priorInput = parseFloat(a) ** parseFloat(b);
     }
 }
