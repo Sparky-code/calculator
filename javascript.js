@@ -3,7 +3,7 @@
 let displayValue = '';
 let currentInput = '';
 let priorInput = '';
-let snarkyMessage = 'Har Har';
+let snarkyMessage = 'GOING PLAID';
 const equals = document.getElementById('equals').innerHTML;
 const operators = document.getElementById('operators');
 
@@ -19,21 +19,33 @@ function clear() {
 
 // INPUT
 
+function inputCheck() {
+
+    if (allowedValues.test(displayValue)) {
+        console.log('YUUUUP!' + displayValue)
+    }
+}
+
 inputOptions.addEventListener('click', function (e) {
     if (e.target.getAttribute('id') === 'Clear') {
         clear();
     } else if (displayValue != '') {
-        currentInput = '';
+        allowedOperators = /\W$/
+        if (allowedOperators.test(e.target.getAttribute('id'))) {
+            operate()
+        } else
+            currentInput = '';
         priorInput = '';
-        displayValue = currentInput + ((displayValue) + (e.target.getAttribute('id')));
-        currentInput = displayValue;
-        document.getElementById('screen').innerHTML = currentInput;
-        console.log(currentInput);
+        displayValue = ((displayValue) + (e.target.getAttribute('id')));
+        document.getElementById('screen').innerHTML = displayValue;
+        console.log(displayValue);
     } else
-        currentInput = currentInput + (e.target.getAttribute('id'));
-    document.getElementById('screen').innerHTML = currentInput
-    console.log(currentInput)
+        displayValue = currentInput + (e.target.getAttribute('id'));
+    document.getElementById('screen').innerHTML = displayValue
+    console.log(displayValue)
 })
+
+// Prohibits Long Strings
 
 inputOptions.addEventListener('click', function (e) {
     if (currentInput.length > 9) {
@@ -42,6 +54,8 @@ inputOptions.addEventListener('click', function (e) {
         console.log(trimmedValue)
     }
 })
+
+// Equals, Prohibit 1/0, Adds input to display
 
 bottomRow.addEventListener('click', function (e) {
     if (e.target.getAttribute('id') === 'equals') {
@@ -60,39 +74,36 @@ bottomRow.addEventListener('click', function (e) {
 // OPERATION
 
 function operate() {
-    if (currentInput.includes('+' || '-' || '/' || '*' || '^')) {
-        console.log('something');
-    }
-    if (currentInput.includes('+')) {
-        priorInput = currentInput.split('+', 9);
+    if (displayValue.includes('+')) {
+        priorInput = displayValue.split('+', 9);
         let a = priorInput[0].toString();
         let b = priorInput[1].toString();
         console.log(priorInput);
         console.log(displayValue = parseFloat(a) + parseFloat(b));
         displayValue = parseFloat(a) + parseFloat(b);
-    } else if (currentInput.includes('-')) {
-        priorInput = currentInput.split('-', 9);
+    } else if (displayValue.includes('-')) {
+        priorInput = displayValue.split('-', 9);
         let a = priorInput[0].toString();
         let b = priorInput[1].toString();
         console.log(priorInput);
         console.log(displayValue = parseFloat(a) - parseFloat(b));
         displayValue = parseFloat(a) - parseFloat(b);
-    } else if (currentInput.includes('*')) {
-        priorInput = currentInput.split('*', 9);
+    } else if (displayValue.includes('*')) {
+        priorInput = displayValue.split('*', 9);
         let a = priorInput[0].toString();
         let b = priorInput[1].toString();
         console.log(priorInput);
         console.log(displayValue = parseFloat(a) * parseFloat(b));
         displayValue = parseFloat(a) * parseFloat(b);
-    } else if (currentInput.includes('/')) {
-        priorInput = currentInput.split('/', 9);
+    } else if (displayValue.includes('/')) {
+        priorInput = displayValue.split('/', 9);
         let a = priorInput[0].toString();
         let b = priorInput[1].toString();
         console.log(priorInput);
         console.log(priorInput = parseFloat(a) / parseFloat(b));
         displayValue = priorInput = parseFloat(a) / parseFloat(b);
-    } else if (currentInput.includes('^')) {
-        priorInput = currentInput.split('^', 9);
+    } else if (displayValue.includes('^')) {
+        priorInput = displayValue.split('^', 9);
         let a = priorInput[0].toString();
         let b = priorInput[1].toString();
         console.log(priorInput);
