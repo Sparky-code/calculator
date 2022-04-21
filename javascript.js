@@ -3,7 +3,6 @@
 let displayValue = '';
 let currentInput = '';
 let priorInput = '';
-let operator = '';
 let snarkyMessage = 'Har Har';
 const equals = document.getElementById('equals').innerHTML;
 const operators = document.getElementById('operators');
@@ -14,7 +13,6 @@ function clear() {
     displayValue = '';
     currentInput = '';
     priorInput = '';
-    operator = '';
     document.getElementById('screen').innerHTML = '';
     console.log('clear!')
 }
@@ -27,7 +25,6 @@ inputOptions.addEventListener('click', function (e) {
     } else if (displayValue != '') {
         currentInput = '';
         priorInput = '';
-        operator = '';
         displayValue = currentInput + ((displayValue) + (e.target.getAttribute('id')));
         currentInput = displayValue;
         document.getElementById('screen').innerHTML = currentInput;
@@ -63,6 +60,9 @@ bottomRow.addEventListener('click', function (e) {
 // OPERATION
 
 function operate() {
+    if (currentInput.includes('+' || '-' || '/' || '*' || '^')) {
+        console.log('something');
+    }
     if (currentInput.includes('+')) {
         priorInput = currentInput.split('+', 9);
         let a = priorInput[0].toString();

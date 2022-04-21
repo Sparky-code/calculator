@@ -476,8 +476,8 @@ body {
     position: relative;
     justify-content: center;
     align-items: center;
-    border: solid #358181 3px;
-    border-radius: 10px;
+    border: solid #358181 1px;
+    border-radius: 5px;
     height: auto;
     width: 7em;
     transition: all 0.07s;
