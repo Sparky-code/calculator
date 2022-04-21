@@ -22,28 +22,25 @@ function clear() {
 // INPUT
 
 inputOptions.addEventListener('click', function (e) {
-    if ((notAllowedOperators.test(displayValue))) {
-        if (/\-/.test(displayValue)) {
-            displayValue = (displayValue + (e.target.getAttribute('id')));
-            return document.getElementById('screen').innerHTML = displayValue
-        } else
-            clear()
-    }
     if (e.target.getAttribute('id') === 'Clear') {
         clear();
+        console.log('you pressed clear')
     } else if (displayValue != '') {
-        if (allowedOperators.test(e.target.getAttribute('id'))) {
-            operate()
+        if ((/\-/.test(displayValue))) {
+            document.getElementById('screen').innerHTML = displayValue.toString()
+            console.log(displayValue + 'contains a negative lead')
+        } else if ((notAllowedOperators.test(displayValue))) {
+            console.log(displayValue + 'contains a leading operator')
         } else
             currentInput = '';
         priorInput = '';
         displayValue = ((displayValue) + (e.target.getAttribute('id')));
         document.getElementById('screen').innerHTML = displayValue;
-        console.log(displayValue);
+        console.log(displayValue + 'is the increment value');
     } else
         displayValue = currentInput + (e.target.getAttribute('id'));
     document.getElementById('screen').innerHTML = displayValue
-    console.log(displayValue)
+    console.log(displayValue + 'is the new value')
 })
 
 // // Prohibits Long Strings
@@ -67,10 +64,10 @@ bottomRow.addEventListener('click', function (e) {
         operate();
         return document.getElementById('screen').innerHTML = displayValue;
     } else
-        console.log(currentInput)
+        console.log(currentInput + 'is a bottom row value')
     displayValue += (e.target.getAttribute('id'));
     document.getElementById('screen').innerHTML = displayValue
-    console.log(displayValue)
+    console.log(displayValue + 'is the new value with bottom row addition')
 })
 
 // OPERATION
@@ -80,36 +77,47 @@ function operate() {
         priorInput = displayValue.split('+', 9);
         let a = priorInput[0].toString();
         let b = priorInput[1].toString();
-        console.log(priorInput);
+        console.log(priorInput + ' was just split for addition');
         console.log(displayValue = parseFloat(a) + parseFloat(b));
-        displayValue = parseFloat(a) + parseFloat(b);
+        num = parseFloat(a) + parseFloat(b);
+        return roundToTwo(num)
     } else if (displayValue.includes('-')) {
         priorInput = displayValue.split('-', 9);
         let a = priorInput[0].toString();
         let b = priorInput[1].toString();
-        console.log(priorInput);
+        console.log(priorInput + 'was just split for subtraction');
         console.log(displayValue = parseFloat(a) - parseFloat(b));
-        displayValue = parseFloat(a) - parseFloat(b);
+        num = parseFloat(a) - parseFloat(b);
+        return roundToTwo(num)
     } else if (displayValue.includes('*')) {
         priorInput = displayValue.split('*', 9);
         let a = priorInput[0].toString();
         let b = priorInput[1].toString();
-        console.log(priorInput);
+        console.log(priorInput + 'was just split for multiplication');
         console.log(displayValue = parseFloat(a) * parseFloat(b));
-        displayValue = parseFloat(a) * parseFloat(b);
+        num = parseFloat(a) * parseFloat(b);
+        return roundToTwo(num)
     } else if (displayValue.includes('/')) {
         priorInput = displayValue.split('/', 9);
         let a = priorInput[0].toString();
         let b = priorInput[1].toString();
-        console.log(priorInput);
+        console.log(priorInput + 'was just split for division');
         console.log(priorInput = parseFloat(a) / parseFloat(b));
-        displayValue = priorInput = parseFloat(a) / parseFloat(b);
+        num = priorInput = parseFloat(a) / parseFloat(b);
+        return roundToTwo(num)
     } else if (displayValue.includes('^')) {
         priorInput = displayValue.split('^', 9);
         let a = priorInput[0].toString();
         let b = priorInput[1].toString();
-        console.log(priorInput);
+        console.log(priorInput + 'was just split for powers');
         console.log(priorInput = parseFloat(a) ** parseFloat(b));
-        displayValue = priorInput = parseFloat(a) ** parseFloat(b);
+        num = priorInput = parseFloat(a) ** parseFloat(b);
+        return roundToTwo(num)
     }
+}
+
+// ROUNDING
+
+function roundToTwo(num) {
+    return displayValue = +(Math.round(num + "e+2") + "e-2");
 }
