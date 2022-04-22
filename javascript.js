@@ -5,6 +5,7 @@ let currentInput = '';
 let priorInput = '';
 let allowedOperators = /\W$/
 let notAllowedOperators = /^\W/
+let allowedValues = /\[0-9]$/
 let snarkyMessage = 'GOING PLAID';
 const operators = document.getElementById('operators');
 const dot = document.getElementById('.')
@@ -19,25 +20,29 @@ function clear() {
     console.log('clear!')
 }
 
-// INPUT
+//Input
 
 inputOptions.addEventListener('click', function (e) {
     if (e.target.getAttribute('id') === 'Clear') {
         clear();
         console.log('you pressed clear')
     } else if (displayValue != '') {
-        if ((/\^-/.test(displayValue))) {
-            document.getElementById('screen').innerHTML = displayValue.toString()
-            console.log(displayValue + ' contains a negative lead')
-        } else if ((notAllowedOperators.test(displayValue))) {
-            console.log(displayValue + ' contains a leading operator')
-        } else
+        if (allowedOperators.test(e.target.getAttribute('id'))) {       // Manages multiple operators
+            if ((/^\-/.test(displayValue))) {
+                console.log(displayValue + ' contains a negative lead')
+                document.getElementById('screen').innerHTML = (displayValue.toString())  // Manages negative leads
+            } else if ((notAllowedOperators.test(displayValue))) {
+                console.log(displayValue + ' contains a leading operator')      // Manages leading operators
+                displayValue = displayValue.substring(1, 9);
+            } else
+                operate()
+        } else                                                              // Manages adding to an existing display
             currentInput = '';
         priorInput = '';
         displayValue = ((displayValue) + (e.target.getAttribute('id')));
         document.getElementById('screen').innerHTML = displayValue;
         console.log(displayValue + ' is the increment value');
-    } else
+    } else                                                                  // Manages New Display
         displayValue = currentInput + (e.target.getAttribute('id'));
     document.getElementById('screen').innerHTML = displayValue
     console.log(displayValue + ' is the new value')
@@ -47,7 +52,7 @@ inputOptions.addEventListener('click', function (e) {
 
 // inputOptions.addEventListener('click', function (e) {
 //     if (displayValue.length > 9) {
-//         let trimmedValue = displayValue.substring(, -1)
+//         let trimmedValue = displayValue.substring(0, -1)
 //         document.getElementById('screen').innerHTML = trimmedValue;
 //         console.log(trimmedValue)
 //     }
