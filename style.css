@@ -442,7 +442,7 @@ body {
     background-color: #2e6f6f;
 }
 
-#numbers {
+#digits {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
