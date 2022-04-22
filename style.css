@@ -381,7 +381,6 @@ template {
 body {
     display: flex;
     height: 100%;
-    align-items: stretch;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -398,10 +397,10 @@ body {
 }
 
 #object.container {
-    margin: 8em;
+    margin: 4em;
     padding: 4em;
-    height: 55em;
-    width: 35em;
+    height: 40em;
+    width: 30em;
     display: flex;
     flex-direction: column;
     border-radius: 4em;
@@ -521,4 +520,34 @@ a {
 p {
     padding: 0;
     margin: 0;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    font-size: .35em;
+}
+
+.signature div {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    bottom: 0;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+img {
+    margin: 5px;
+}
+
+.signature a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-family: Arial Narrow, sans-serif;
+    /* no underline */
 }

@@ -6,8 +6,8 @@ let priorInput = '';
 let allowedOperators = /\W$/
 let notAllowedOperators = /^\W/
 let snarkyMessage = 'GOING PLAID';
-const equals = document.getElementById('equals').innerHTML;
 const operators = document.getElementById('operators');
+const dot = document.getElementById('.')
 
 // CLEAR Function & Button
 
@@ -26,21 +26,21 @@ inputOptions.addEventListener('click', function (e) {
         clear();
         console.log('you pressed clear')
     } else if (displayValue != '') {
-        if ((/\-/.test(displayValue))) {
+        if ((/\^-/.test(displayValue))) {
             document.getElementById('screen').innerHTML = displayValue.toString()
-            console.log(displayValue + 'contains a negative lead')
+            console.log(displayValue + ' contains a negative lead')
         } else if ((notAllowedOperators.test(displayValue))) {
-            console.log(displayValue + 'contains a leading operator')
+            console.log(displayValue + ' contains a leading operator')
         } else
             currentInput = '';
         priorInput = '';
         displayValue = ((displayValue) + (e.target.getAttribute('id')));
         document.getElementById('screen').innerHTML = displayValue;
-        console.log(displayValue + 'is the increment value');
+        console.log(displayValue + ' is the increment value');
     } else
         displayValue = currentInput + (e.target.getAttribute('id'));
     document.getElementById('screen').innerHTML = displayValue
-    console.log(displayValue + 'is the new value')
+    console.log(displayValue + ' is the new value')
 })
 
 // // Prohibits Long Strings
@@ -64,10 +64,9 @@ bottomRow.addEventListener('click', function (e) {
         operate();
         return document.getElementById('screen').innerHTML = displayValue;
     } else
-        console.log(currentInput + 'is a bottom row value')
-    displayValue += (e.target.getAttribute('id'));
+        displayValue += (e.target.getAttribute('id'));
     document.getElementById('screen').innerHTML = displayValue
-    console.log(displayValue + 'is the new value with bottom row addition')
+    console.log(displayValue + ' is the new value with bottom row addition')
 })
 
 // OPERATION
@@ -85,7 +84,7 @@ function operate() {
         priorInput = displayValue.split('-', 9);
         let a = priorInput[0].toString();
         let b = priorInput[1].toString();
-        console.log(priorInput + 'was just split for subtraction');
+        console.log(priorInput + ' was just split for subtraction');
         console.log(displayValue = parseFloat(a) - parseFloat(b));
         num = parseFloat(a) - parseFloat(b);
         return roundToTwo(num)
@@ -93,7 +92,7 @@ function operate() {
         priorInput = displayValue.split('*', 9);
         let a = priorInput[0].toString();
         let b = priorInput[1].toString();
-        console.log(priorInput + 'was just split for multiplication');
+        console.log(priorInput + ' was just split for multiplication');
         console.log(displayValue = parseFloat(a) * parseFloat(b));
         num = parseFloat(a) * parseFloat(b);
         return roundToTwo(num)
@@ -101,7 +100,7 @@ function operate() {
         priorInput = displayValue.split('/', 9);
         let a = priorInput[0].toString();
         let b = priorInput[1].toString();
-        console.log(priorInput + 'was just split for division');
+        console.log(priorInput + ' was just split for division');
         console.log(priorInput = parseFloat(a) / parseFloat(b));
         num = priorInput = parseFloat(a) / parseFloat(b);
         return roundToTwo(num)
@@ -109,7 +108,7 @@ function operate() {
         priorInput = displayValue.split('^', 9);
         let a = priorInput[0].toString();
         let b = priorInput[1].toString();
-        console.log(priorInput + 'was just split for powers');
+        console.log(priorInput + ' was just split for powers');
         console.log(priorInput = parseFloat(a) ** parseFloat(b));
         num = priorInput = parseFloat(a) ** parseFloat(b);
         return roundToTwo(num)
@@ -121,3 +120,8 @@ function operate() {
 function roundToTwo(num) {
     return displayValue = +(Math.round(num + "e+2") + "e-2");
 }
+
+
+// Needs floating point handling
+// Needs keyboard integration
+// needs moderate refactoring
