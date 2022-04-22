@@ -30,7 +30,7 @@ inputOptions.addEventListener('click', function (e) {
         if (allowedOperators.test(e.target.getAttribute('id'))) {       // Manages multiple operators
             if ((/^\-/.test(displayValue))) {
                 console.log(displayValue + ' contains a negative lead')
-                document.getElementById('screen').innerHTML = (displayValue.toString())  // Manages negative leads
+                document.getElementById('screen').innerHTML = displayValue.toString()   // Manages negative leads
             } else if ((notAllowedOperators.test(displayValue))) {
                 console.log(displayValue + ' contains a leading operator')      // Manages leading operators
                 displayValue = displayValue.substring(1, 9);
@@ -77,6 +77,22 @@ bottomRow.addEventListener('click', function (e) {
 // OPERATION
 
 function operate() {
+    if (displayValue < 0) {                     // Manages negative number + eqauls error
+        return displayValue;
+    }
+    if (displayValue.startsWith('-')) {                 // Dealing with negative addition....
+        priorInput = displayValue.substring(1, 5)
+        console.log(priorInput)
+        priorInput = priorInput.split('-');
+        console.log(priorInput)
+        let a = currentInput.concat('-', priorInput[0]);
+        console.log(a);
+        let b = priorInput[1].toString();
+        console.log(priorInput + ' was just split for subtraction');
+        console.log(displayValue = parseFloat(a) - parseFloat(b));
+        num = parseFloat(a) - parseFloat(b);
+        return roundToTwo(num)
+    }
     if (displayValue.includes('+')) {
         priorInput = displayValue.split('+', 9);
         let a = priorInput[0].toString();
