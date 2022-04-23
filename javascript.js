@@ -35,9 +35,21 @@ digits.addEventListener('click', function (e) {
 })
 
 operators.addEventListener('click', function (e) {
-    if (e.target.getAttribute('id') == 'Clear') {
+    if (e.target.getAttribute('id') == 'Clear') {           // Clear Function
         console.log('clear pressed')
         return clear()
+    } else if (e.target.getAttribute('id') == 'equals') {       // Manages 1/0 Error
+        console.log('equals')
+        if (currentInput == '1/0') {
+            clear()
+            return document.getElementById('screen').innerHTML = snarkyMessage;
+        } else if (allowedOperators.test(displayValue)) {       // Manages Double Operator
+            console.log('equals operator end')
+            return displayValue;
+        } else                                          // Manages Regular Equations
+            console.log('equals operate')
+        operate();
+        return document.getElementById('screen').innerHTML = displayValue;
     } else if (displayValue != '') {
         if (/^\-/.test(displayValue)) {
             console.log(displayValue + ' contains a negative lead')
@@ -48,11 +60,22 @@ operators.addEventListener('click', function (e) {
         } else if ((allowedOperators.test(displayValue)) && (allowedOperators.test((e.target.getAttribute('id'))))) {
             console.log('clear for double operator');
             return document.getElementById('screen').innerHTML = displayValue;
-        } else if (allowedValues.test(displayValue)) {
-            displayValue = displayValue + (e.target.getAttribute('id'));
-            return document.getElementById('screen').innerHTML = displayValue;
+        } else if (/\w$/.test(displayValue)) {
+            if (typeof (displayValue) == "number") {
+                console.log('eqauls > operator')
+                displayValue = displayValue + (e.target.getAttribute('id'));
+                return document.getElementById('screen').innerHTML = displayValue;
+            } else
+                console.log(displayValue)
+            console.log(currentInput)
+            console.log(priorInput)
+            console.log('should solve it...' + displayValue + (e.target.getAttribute('id')))
+            operate()
         } else
             console.log('here')
+        console.log(displayValue)
+        console.log(currentInput)
+        console.log(priorInput)
         operate()
     } else
         currentInput = '';
@@ -62,18 +85,6 @@ operators.addEventListener('click', function (e) {
     console.log(displayValue + ' is the increment value');
 })
 
-bottomRow.addEventListener('click', function (e) {
-    if (e.target.getAttribute('id') == 'equals') {
-        console.log('equals')
-        if (allowedOperators.test(displayValue)) {
-            console.log('equals operator end')
-            return displayValue;
-        }
-        console.log('equals operate')
-        operate();
-        document.getElementById('screen').innerHTML = displayValue;
-    }
-})
 // && (allowedOperators.test(displayValue))){
 
 
